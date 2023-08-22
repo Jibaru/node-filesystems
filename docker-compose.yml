@@ -1,0 +1,33 @@
+version: "3"
+services:
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - "${MINIO_API_PORT}:9000"
+      - "${MINIO_WEB_PORT}:9001"
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin123
+      MINIO_ROOT_PASSWORD: admin123
+    volumes:
+      - ./minio_data:/data
+    networks:
+      - app-network
+
+  nodejs-server:
+    image: node:14
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    command: sh -c "npm install typescript && npm install && rm -R dist && npm run build && cp -R src/public dist/public && npm start"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  minio_data:
