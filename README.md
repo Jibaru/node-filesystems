@@ -5,8 +5,9 @@ Example of how to load files (images) in node with simple adapter pattern.
 ## Get started
 
 1. Clone the `.env.example` to `.env`.
-2. Change `FILESYSTEM`value to `local`, `minio` depending on what you want to test.
-3. Serve the project with `docker-compose up`.
+2. Create a `dist` folder in the root of the project.
+3. Change `FILESYSTEM`value to `local`, `minio` depending on what you want to test.
+4. Serve the project with `docker-compose up`.
 
 ## Usage with minio
 
